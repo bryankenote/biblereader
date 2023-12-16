@@ -26,8 +26,7 @@ type PageData struct {
 func main() {
 	fmt.Println("Listening on :8080 ...")
 
-	// TODO: gRPC
-	client := biblev1connect.NewBibleServiceClient(http.DefaultClient, "http://localhost:8000")
+	client := biblev1connect.NewBibleServiceClient(http.DefaultClient, "http://localhost:8000", connect.WithGRPC())
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
