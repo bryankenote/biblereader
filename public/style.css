@@ -1,0 +1,24 @@
+form {
+  display: flex;
+}
+
+form input {
+  margin-right: 10px;
+}
+
+.passage {
+  margin: 10px;
+  display: grid;
+  grid-template-columns: 25px auto;
+  grid-column-gap: 10px;
+}
+
+.prev-next-container {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.prev-next-container button {
+  margin-right: 10px;
+}
