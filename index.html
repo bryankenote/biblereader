@@ -18,18 +18,19 @@
         <form hx-post="/GetChapter" hx-target="body" hx-indicator="#spinner">
           <div>
             <label for="form-book">Book</label>
-            <input
-              type="text"
-              name="book"
-              id="form-book"
-              class="form-control"
-              value="{{ .Book }}"
-            />
+            <select name="book" id="form-book">
+              {{ range .Books }}
+                <option value="{{ . }}">{{ . }}</option>
+              {{ end }}
+              <option value="{{ .Book }}" selected="selected">
+                {{ .Book }}
+              </option>
+            </select>
           </div>
           <div>
             <label for="form-chapter">Chapter</label>
             <input
-              type="text"
+              type="number"
               name="chapter"
               id="form-chapter"
               class="form-control"

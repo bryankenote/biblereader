@@ -13,9 +13,11 @@ import (
 	"bibleapi/src/codegen/pb/bible/v1/biblev1connect"
 
 	"connectrpc.com/connect"
+	// "github.com/a-h/templ"
 )
 
 type PageData struct {
+	Books          []string
 	Verses         []*biblev1.Verse
 	Translation    string
 	Book           string
@@ -65,6 +67,7 @@ func main() {
 		}
 
 		data := PageData{
+			Books:          utils.GetBookNames(),
 			Verses:         res.Msg.Verses,
 			Translation:    res.Msg.Verses[0].Translation,
 			Book:           res.Msg.Verses[0].Book,
@@ -72,6 +75,9 @@ func main() {
 			HasPrevChapter: chapterNum > 1,
 			HasNextChapter: chapterNum < utils.GetTotalChapters()[book],
 		}
+
+		// component := Index(data)
+		// templ.Handler(component)
 		tmpl := template.Must(template.ParseFiles("index.html"))
 		tmpl.Execute(w, data)
 	})
@@ -80,13 +86,12 @@ func main() {
 }
 
 /* TODOS:
- *	1. dockerize
- *	2. mysql
- *	3. accessibility
- *	4. css
- *	5. improve importing
- *	6. book wrap
- *	7. book dropdown
- *	8. chapter dropdown
- *	9. infinite scroll
+ *	dockerize
+ *	mysql
+ *	accessibility
+ *	improve importing
+ *	book wrap
+ *	infinite scroll
+ *	unhardcode ports
+ *	documentation
  */

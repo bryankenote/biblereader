@@ -1,0 +1,113 @@
+package main
+
+templ Reader(data PageData) {
+	<div>
+		<div>
+			<form hx-post="/GetChapter" hx-target="body" hx-indicator="#spinner">
+				<div>
+					<label for="form-book">Book</label>
+					<select name="book" id="form-book">
+						for book := range data.Books {
+							<option value="{ book }">{ string(book) }</option>
+						}
+						<option value="{ data.Book }" selected="selected">
+							{ data.Book }
+						</option>
+					</select>
+				</div>
+				<div>
+					<label for="form-chapter">Chapter</label>
+					<input
+ 						type="number"
+ 						name="chapter"
+ 						id="form-chapter"
+ 						class="form-control"
+ 						value="{ data.Chapter }"
+					/>
+				</div>
+				<button type="submit">
+					<span
+ 						id="spinner"
+ 						class="spinner-border spinner-border-sm htmx-indicator"
+ 						role="status"
+ 						aria-hidden="true"
+					></span>
+					Submit
+				</button>
+			</form>
+			<div id="content">
+				<div class="prev-next-container">
+					<button
+ 						hx-post="/"
+ 						hx-target="body"
+ 						hx-indicator="#spinner"
+ 						hx-vals='{"translation": "{ data.Translation }", "book": "{ data.Book }", "chapter": { data.Chapter }, "prev": true}'
+ 						if !data.HasPrevChapter {
+							disabled
+						}
+					>
+						prev
+					</button>
+					<button
+ 						hx-post="/"
+ 						hx-target="body"
+ 						hx-indicator="#spinner"
+ 						hx-vals='{"translation": "{ data.Translation }", "book": "{ data.Book }", "chapter": { data.Chapter }, "next": true}'
+ 						if !data.HasNextChapter {
+							disabled
+						}
+					>
+						next
+					</button>
+				</div>
+				<div class="passage">
+					for _, verse := range data.Verses {
+						<span class="verse-number">{ string(verse.Verse) }</span>
+						<span class="verse-content">{ verse.Content }</span>
+					}
+				</div>
+				<div class="prev-next-container">
+					<button
+ 						hx-post="/"
+ 						hx-target="body"
+ 						hx-indicator="#spinner"
+ 						hx-vals='{"translation": "{ data.Translation }", "book": "{ data.Book }", "chapter": { data.Chapter }, "prev": true}'
+ 						if !data.HasPrevChapter {
+							disabled
+						}
+					>
+						prev
+					</button>
+					<button
+ 						hx-post="/"
+ 						hx-target="body"
+ 						hx-indicator="#spinner"
+ 						hx-vals='{"translation": "{ data.Translation }", "book": "{ data.Book }", "chapter": { data.Chapter }, "next": true}'
+ 						if !data.HasNextChapter {
+							disabled
+						}
+					>
+						next
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+templ Index(data PageData) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<link href="public/style.css" rel="stylesheet"/>
+			<script src="https://unpkg.com/htmx.org@1.9.9" integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX" crossorigin="anonymous"></script>
+			<title>Bible</title>
+		</head>
+		<body>
+			@Reader(data)
+		</body>
+	</html>
+}
