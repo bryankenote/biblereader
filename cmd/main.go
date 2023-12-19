@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/bryankenote/bibleapi/src/codegen/pb/bible/v1/biblev1connect"
-	"github.com/bryankenote/biblereader/handler"
 	"net/http"
+
+	"github.com/bryankenote/bibleapi/codegen/pb/bible/v1/biblev1connect"
+	"github.com/bryankenote/biblereader/handler"
 
 	"connectrpc.com/connect"
 	"github.com/labstack/echo/v4"

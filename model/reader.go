@@ -1,6 +1,6 @@
 package model
 
-import biblev1 "github.com/bryankenote/bibleapi/src/codegen/pb/bible/v1"
+import biblev1 "github.com/bryankenote/bibleapi/codegen/pb/bible/v1"
 
 type Reader struct {
 	Books          []string

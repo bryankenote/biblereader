@@ -2,8 +2,8 @@ package handler
 
 import (
 	"context"
-	biblev1 "github.com/bryankenote/bibleapi/src/codegen/pb/bible/v1"
-	"github.com/bryankenote/bibleapi/src/codegen/pb/bible/v1/biblev1connect"
+	biblev1 "github.com/bryankenote/bibleapi/codegen/pb/bible/v1"
+	"github.com/bryankenote/bibleapi/codegen/pb/bible/v1/biblev1connect"
 	"github.com/bryankenote/biblereader/model"
 	"github.com/bryankenote/biblereader/view/reader"
 	utils "github.com/bryankenote/bibleutils"
