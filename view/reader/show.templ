@@ -1,0 +1,118 @@
+package reader
+
+import (
+	"encoding/json"
+	"github.com/bryankenote/biblereader/view/layout"
+	"github.com/bryankenote/biblereader/model"
+	"strconv"
+)
+
+func hostMapJSON(data model.Reader, direction string) string {
+	m := map[string]string{
+		"translation": data.Translation,
+		"book":        data.Book,
+		"chapter":     strconv.Itoa(int(data.Chapter)),
+	}
+
+	m[direction] = "true"
+
+	v, _ := json.Marshal(m)
+	return string(v)
+}
+
+templ Show(data model.Reader) {
+	@layout.Base(data.Translation) {
+		<div id="reader">
+			<div>
+				<form hx-get="/" hx-target="#reader" hx-indicator="#spinner">
+					<div>
+						<label for="form-book">Book</label>
+						<select name="book" id="form-book">
+							for _, book := range data.Books {
+								<option value={ book }>{ book }</option>
+							}
+							<option value={ data.Book } selected="selected">
+								{ data.Book }
+							</option>
+						</select>
+					</div>
+					<div>
+						<label for="form-chapter">Chapter</label>
+						<input
+ 							type="number"
+ 							name="chapter"
+ 							id="form-chapter"
+ 							class="form-control"
+ 							value={ strconv.Itoa(int(data.Chapter)) }
+						/>
+					</div>
+					<button type="submit">
+						<span
+ 							id="spinner"
+ 							class="spinner-border spinner-border-sm htmx-indicator"
+ 							role="status"
+ 							aria-hidden="true"
+						></span>
+						Submit
+					</button>
+				</form>
+				<div id="content">
+					<div class="prev-next-container">
+						<button
+ 							hx-get="/"
+ 							hx-target="body"
+ 							hx-indicator="#spinner"
+ 							hx-vals={ hostMapJSON(data, "prev") }
+ 							if !data.HasPrevChapter {
+								disabled
+							}
+						>
+							prev
+						</button>
+						<button
+ 							hx-get="/"
+ 							hx-target="body"
+ 							hx-indicator="#spinner"
+ 							hx-vals={ hostMapJSON(data, "next") }
+ 							if !data.HasNextChapter {
+								disabled
+							}
+						>
+							next
+						</button>
+					</div>
+					<div class="passage">
+						for _, verse := range data.Verses {
+							<span class="verse-number">{ string(verse.Verse) }</span>
+							<span class="verse-content">{ verse.Content }</span>
+						}
+					</div>
+					<div class="prev-next-container">
+						<button
+ 							hx-get="/"
+ 							hx-target="body"
+ 							hx-indicator="#spinner"
+ 							hx-vals={ hostMapJSON(data, "prev") }
+ 							if !data.HasPrevChapter {
+								disabled
+							}
+						>
+							prev
+						</button>
+						<button
+ 							hx-get="/"
+ 							hx-target="body"
+ 							hx-indicator="#spinner"
+ 							hx-vals={ hostMapJSON(data, "next") }
+ 							if !data.HasNextChapter {
+								disabled
+							}
+						>
+							next
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

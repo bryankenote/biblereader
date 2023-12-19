@@ -1,0 +1,43 @@
+package layout
+
+templ Base(title string) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<script src="https://unpkg.com/htmx.org@1.9.9" integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX" crossorigin="anonymous"></script>
+			<title>{ title }</title>
+			<style>
+				form {
+				  display: flex;
+				}
+
+				form div {
+				  margin-right: 10px;
+				}
+
+				.passage {
+				  margin: 10px;
+				  display: grid;
+				  grid-template-columns: 25px auto;
+				  grid-column-gap: 10px;
+				}
+
+				.prev-next-container {
+				  margin: 20px;
+				  display: flex;
+				  justify-content: center;
+				}
+
+				.prev-next-container button {
+				  margin-right: 10px;
+				}
+			</style>
+		</head>
+		<body>
+			{ children... }
+		</body>
+	</html>
+}
