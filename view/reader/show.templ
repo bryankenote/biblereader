@@ -5,6 +5,7 @@ import (
 	"github.com/bryankenote/biblereader/view/layout"
 	"github.com/bryankenote/biblereader/model"
 	"strconv"
+	"github.com/bryankenote/biblereader/view/components/ChapterBumpButtons"
 )
 
 func hostMapJSON(data model.Reader, direction string) string {
@@ -57,60 +58,14 @@ templ Show(data model.Reader) {
 					</button>
 				</form>
 				<div id="content">
-					<div class="prev-next-container">
-						<button
- 							hx-get="/"
- 							hx-target="body"
- 							hx-indicator="#spinner"
- 							hx-vals={ hostMapJSON(data, "prev") }
- 							if !data.HasPrevChapter {
-								disabled
-							}
-						>
-							prev
-						</button>
-						<button
- 							hx-get="/"
- 							hx-target="body"
- 							hx-indicator="#spinner"
- 							hx-vals={ hostMapJSON(data, "next") }
- 							if !data.HasNextChapter {
-								disabled
-							}
-						>
-							next
-						</button>
-					</div>
+					@components.ChapterBumpButtons(data.HasPrevChapter, data.HasNextChapter, hostMapJSON(data, "prev"), hostMapJSON(data, "next"))
 					<div class="passage">
 						for _, verse := range data.Verses {
 							<span class="verse-number">{ string(verse.Verse) }</span>
 							<span class="verse-content">{ verse.Content }</span>
 						}
 					</div>
-					<div class="prev-next-container">
-						<button
- 							hx-get="/"
- 							hx-target="body"
- 							hx-indicator="#spinner"
- 							hx-vals={ hostMapJSON(data, "prev") }
- 							if !data.HasPrevChapter {
-								disabled
-							}
-						>
-							prev
-						</button>
-						<button
- 							hx-get="/"
- 							hx-target="body"
- 							hx-indicator="#spinner"
- 							hx-vals={ hostMapJSON(data, "next") }
- 							if !data.HasNextChapter {
-								disabled
-							}
-						>
-							next
-						</button>
-					</div>
+					@components.ChapterBumpButtons(data.HasPrevChapter, data.HasNextChapter, hostMapJSON(data, "prev"), hostMapJSON(data, "next"))
 				</div>
 			</div>
 		</div>
