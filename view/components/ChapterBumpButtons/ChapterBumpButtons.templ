@@ -3,22 +3,22 @@ package components
 templ ChapterBumpButtons(hasPrevChapter, hasNextChapter bool, prevHxVals, nextHxVals string) {
 	<div class="prev-next-container">
 		<button
- 			hx-get="/"
- 			hx-target="body"
- 			hx-indicator="#spinner"
- 			hx-vals={ prevHxVals }
- 			if !hasPrevChapter {
+			hx-get="/"
+			hx-target="body"
+			hx-indicator="#spinner"
+			hx-vals={ prevHxVals }
+			if !hasPrevChapter {
 				disabled
 			}
 		>
 			prev
 		</button>
 		<button
- 			hx-get="/"
- 			hx-target="body"
- 			hx-indicator="#spinner"
- 			hx-vals={ nextHxVals }
- 			if !hasNextChapter {
+			hx-get="/"
+			hx-target="body"
+			hx-indicator="#spinner"
+			hx-vals={ nextHxVals }
+			if !hasNextChapter {
 				disabled
 			}
 		>

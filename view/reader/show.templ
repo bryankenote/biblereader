@@ -1,6 +1,7 @@
 package reader
 
 import (
+	"fmt"
 	"encoding/json"
 	"github.com/bryankenote/biblereader/view/layout"
 	"github.com/bryankenote/biblereader/model"
@@ -40,19 +41,19 @@ templ Show(data model.Reader) {
 					<div>
 						<label for="form-chapter">Chapter</label>
 						<input
- 							type="number"
- 							name="chapter"
- 							id="form-chapter"
- 							class="form-control"
- 							value={ strconv.Itoa(int(data.Chapter)) }
+							type="number"
+							name="chapter"
+							id="form-chapter"
+							class="form-control"
+							value={ strconv.Itoa(int(data.Chapter)) }
 						/>
 					</div>
 					<button type="submit">
 						<span
- 							id="spinner"
- 							class="spinner-border spinner-border-sm htmx-indicator"
- 							role="status"
- 							aria-hidden="true"
+							id="spinner"
+							class="spinner-border spinner-border-sm htmx-indicator"
+							role="status"
+							aria-hidden="true"
 						></span>
 						Submit
 					</button>
@@ -61,7 +62,7 @@ templ Show(data model.Reader) {
 					@components.ChapterBumpButtons(data.HasPrevChapter, data.HasNextChapter, hostMapJSON(data, "prev"), hostMapJSON(data, "next"))
 					<div class="passage">
 						for _, verse := range data.Verses {
-							<span class="verse-number">{ string(verse.Verse) }</span>
+							<span class="verse-number">{ fmt.Sprintf("%d", verse.Verse) }</span>
 							<span class="verse-content">{ verse.Content }</span>
 						}
 					</div>
